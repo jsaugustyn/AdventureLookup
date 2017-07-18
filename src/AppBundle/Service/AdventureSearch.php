@@ -353,10 +353,10 @@ class AdventureSearch
                 continue;
             }
 
-            $booleanOperator = isset($filter['b']) ? $filter['b'] : 'AND';
-            if (!in_array($booleanOperator, ['AND', 'OR'], true)) {
-                $booleanOperator = 'AND';
-            }
+            #$booleanOperator = isset($filter['b']) ? $filter['b'] : 'AND';
+            #if (!in_array($booleanOperator, ['AND', 'OR'], true)) {
+            #    $booleanOperator = 'AND';
+            #}
 
             $filterMatches = [];
             foreach ($values as $key => $value) {
@@ -385,20 +385,26 @@ class AdventureSearch
             }
 
             if (count($filterMatches) > 0) {
-                if ($booleanOperator == 'OR') {
-                    $matches[] = [
-                        'bool' => [
-                            'should' => $filterMatches,
-                            'minimum_should_match' => 1,
-                        ]
-                    ];
-                } else {
-                    $matches[] = [
-                        'bool' => [
-                            'must' => $filterMatches
-                        ]
-                    ];
-                }
+                $matches[] = [
+                    'bool' => [
+                        'should' => $filterMatches,
+                        'minimum_should_match' => 1,
+                    ]
+                ];
+                #if ($booleanOperator == 'OR') {
+                #    $matches[] = [
+                #        'bool' => [
+                #            'should' => $filterMatches,
+                #            'minimum_should_match' => 1,
+                #        ]
+                #    ];
+                #} else {
+                #    $matches[] = [
+                #        'bool' => [
+                #            'must' => $filterMatches
+                #        ]
+                #    ];
+                #}
             }
         }
         return $matches;
